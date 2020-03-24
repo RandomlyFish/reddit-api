@@ -1,0 +1,29 @@
+{
+  "name": "reddit-api",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@randomlyfish/utils": "^0.1.4",
+    "axios": "^0.19.2",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "scripts": {
+    "build": "webpack --entry ./example/client/index.js --output-filename ./example/client/dist/bundle.js --mode=development --watch",
+    "server": "nodemon example/server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RandomlyFish/reddit-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RandomlyFish/reddit-api/issues"
+  },
+  "homepage": "https://github.com/RandomlyFish/reddit-api#readme"
+}
