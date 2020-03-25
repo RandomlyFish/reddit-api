@@ -1,5 +1,5 @@
 {
-  "name": "reddit-api",
+  "name": "@randomlyfish/reddit-api",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -21,9 +21,12 @@
     "url": "git+https://github.com/RandomlyFish/reddit-api.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/RandomlyFish/reddit-api/issues"
   },
-  "homepage": "https://github.com/RandomlyFish/reddit-api#readme"
+  "homepage": "https://github.com/RandomlyFish/reddit-api#readme",
+  "directories": {
+    "example": "example"
+  }
 }
