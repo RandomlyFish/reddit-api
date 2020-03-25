@@ -3,9 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reddit api example</title>
 </head>
 <body>
     <script src="scripts/bundle.js" type="module"></script>
+    <h1>Reddit api example</h1>
+
+    <label>Subreddit:</label><br>
+    <input type="text" id="subreddit"><br><br>
+
+    <label>Flair:</label><br>
+    <input type="text" id="flair"><br><br>
+
+    <label>Search:</label><br>
+    <input type="text" id="search"><br><br>
+
+    <label>Sort By:</label><br>
+    <select id="sort">
+        <option value="relevance">relevance</option>
+        <option value="new">new</option>
+        <option value="top">top</option>
+        <option value="comments">comments</option>
+    </select><br><br>
+
+    <label>Time:</label><br>
+    <select id="time">
+        <option value="all">all</option>
+        <option value="year">year</option>
+        <option value="month">month</option>
+        <option value="week">week</option>
+        <option value="day">day</option>
+        <option value="hour">hour</option>
+    </select><br><br>
+
+    <label>After (type_id):</label><br>
+    <input type="text" id="after"><br><br>
+
+    <label>Before (type_id):</label><br>
+    <input type="text" id="before"><br><br>
+
+    <label>Link Domain:</label><br>
+    <input type="text" id="linkDomain"><br><br>
+
+    <label id="limitText">Limit (5):</label><br>
+    <input type="range" min="1" max="100" value="5" id="limit"><br><br>
+
+    <label>NSFW:</label><br>
+    <input type="checkbox" id="nsfw"><br><br>
+
+    <input type="submit" value="Submit" id="submit">
 </body>
 </html>

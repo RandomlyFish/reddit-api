@@ -16,15 +16,16 @@ const types = {
 class ServerApi {
 
     constructor () {
-        this.getPosts({})
+        
     }
 
     /**
-     * Call to enable requests from client to the server through the client api
+     * Add routes to an express app with "/reddit-api" as the root  
+     * It's required when using the client api
      * @param {*} app instance of an express app
      */
-    initialize(app) {
-        app.get("/reddit/posts", (req, res) => {
+    addRoutes(app) {
+        app.get("/reddit-api/posts", (req, res) => {
             this.getPosts(req.query).then(response => {
                 res.send({response: response});
             });
@@ -38,7 +39,7 @@ class ServerApi {
     async getPosts(options) {
         let url = "https://www.reddit.com/";
 
-        options = this.cloneObject(options); // The object is cloned as it will be modified
+        options = this._cloneObject(options); // The object is cloned as it will be modified
 
         if (options.subreddit !== undefined) {
             if (Array.isArray(options.subreddit) === true) {
@@ -46,8 +47,9 @@ class ServerApi {
             } else {
                 url += "r/" + options.subreddit + "/search.json";
             }
-           
+
             options.restrict_sr = "on";
+
         } else {
             url += "search.json";
         }
@@ -69,33 +71,42 @@ class ServerApi {
             terms.push("site:" + options.linkDomain);
         }
 
+        if (options.flair !== undefined) {
+            terms.push("flair:" + options.flair);
+        }
+
         options.q = terms.join(" ");
 
         if (options.time) {
             options.t = options.time;
         }
 
-        delete options.time;
-        delete options.searchTerm;
-        delete options.nsfw;
         delete options.subreddit;
+        delete options.searchTerm;
         delete options.linkDomain;
+        delete options.time;
+        delete options.nsfw;
+        delete options.flair;
 
         const params = querystring.stringify(options);
 
-        console.log("Reddit search:", url + "?" + params);
+        let logUrl = decodeURIComponent(url + "?" + params);
+        logUrl = logUrl.split(" ").join("%20");
+        logUrl = logUrl.replace(".json", "");
+
+        console.log("Reddit search:", logUrl);
 
         return await axios.get(url + "?" + params).then(response => {
-            return this.parseResponse(response);
+            return this._parseResponse(response);
         });
     }
 
-    cloneObject(obj) {
+    _cloneObject(obj) {
         const string = JSON.stringify(obj);
         return JSON.parse(string);
     }
 
-    parseResponse(response) {
+    _parseResponse(response) {
         response = response.data.data.children.map(object => {
             const data = object.data;
             data.kind = object.kind;
@@ -108,22 +119,25 @@ class ServerApi {
             /** @type {redditApiParsedPost} */
             const data = {
                 postUrl: "https://reddit.com" + object.permalink,
-                author: object.author,
-                date: date.toDateString(),
-                id: object.id,
                 type: object.kind,
-                subreddit: object.subreddit,
+                id: object.id,
+                flair: object.link_flair_text,
+                thumbnail: object.thumbnail,
+                author: object.author,
                 title: object.title,
+                date: date.toDateString(),
+                subreddit: object.subreddit,
                 score: object.score,
+                comments: object.num_comments,
                 linkDomain: object.domain,
                 linkUrl: object.url,
                 nsfw: object.over_18,
-                comments: object.num_comments
+                original: object
             }
 
             // The id in the source urls for gfycat are case sensetive, where as the regular urls are not
             if (data.domain === "gfycat.com" && object.media !== null) {
-                data.linkUrl = this.parseGfycatUrl(object.media.oembed.thumbnail_url);
+                data.linkUrl = this._parseGfycatUrl(object.media.oembed.thumbnail_url);
             }
 
             return data;
@@ -132,7 +146,7 @@ class ServerApi {
         return response;
     }
 
-    parseGfycatUrl(url) {
+    _parseGfycatUrl(url) {
         url = decodeURIComponent(url); // in case the url have been encoded with unicode characters
         const id = StringUtil.getBetween(url, "gfycat.com/", "-");
         return "https://gfycat.com/" + id;
