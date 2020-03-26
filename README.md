@@ -91,7 +91,7 @@ import {redditClientApi} from "@randomlyfish/reddit-api";
 
 const options = {limit: 5};
 redditClientApi.getPosts(options).then(response => {
-    console.log(response.response); // Logs out an array of objects with all the posts
+    console.log(response.data); // Logs out an array of objects with all the posts
 });
 ```
 <br>
