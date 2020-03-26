@@ -130,7 +130,7 @@ class ServerApi {
             }
 
             // The id in the source urls for gfycat are case sensetive, where as the regular urls are not
-            if (data.domain === "gfycat.com" && object.media !== null) {
+            if (data.linkDomain === "gfycat.com" && object.media !== null) {
                 data.linkUrl = this._parseGfycatUrl(object.media.oembed.thumbnail_url);
             }
 

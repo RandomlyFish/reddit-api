@@ -79,7 +79,7 @@ webpack.config.js
     <title>Document</title>
 </head>
 <body>
-    <script src="scripts/bundle.js" type="module"></script>
+    <script src="dist/bundle.js" type="module"></script>
 </body>
 </html>
 ```
@@ -109,7 +109,7 @@ const port = process.env.PORT || localPort;
 const root = process.cwd();
 
 app.listen(port);
-app.use("/scripts", express.static("dist"));
+app.use("/dist", express.static("dist"));
 
 app.get("/", (req, res) => {
 	res.sendFile(path.join(root + "/client/index.html"));
