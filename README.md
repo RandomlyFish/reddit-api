@@ -38,14 +38,21 @@ This information is also available through jsdoc.
 
 This library uses [express](https://www.npmjs.com/package/express) to enable comunication between the client and the server, so some knowledege on express is recommended.
 
+In order to use the client api class it also needs to be bundled, for that I would recommend [webpack](https://www.npmjs.com/package/webpack).
+
 <br>
 
 ## Getting started
 
-Run the following command in the terminal:
-
+First install reddit-api and express by running the following in the terminal:
 ```
-npm install @randomlyfish/reddit-api
+npm install @randomlyfish/reddit-api  express
+```
+<br>
+
+Then install webpack as a development dependency:
+```
+npm install webpack --save-dev
 ```
 <br>
 
@@ -57,6 +64,7 @@ client
     index.js
 server
     app.js
+webpack.config.js
 ```
 <br>
 
@@ -108,7 +116,7 @@ app.get("/", (req, res) => {
 });
 
 if (port === localPort) {
-  // In the terminal, you can hold control and click on the link to open it in the browser
+	// In the terminal, you can hold control and click on the link to open it in the browser
 	console.log("http://127.0.0.1:" + port + "/");
 }
 
@@ -117,4 +125,40 @@ const {redditServerApi} = require("@randomlyfish/reddit-api");
 
 // Enables the use of the client api which is used in index.js
 redditServerApi.addRoutes(app);
+```
+<br>
+
+### webpack.config.js
+``` javascript
+const path = require("path");
+
+module.exports = {
+	// This defines where webpack will start gathering dependencies, 
+	// it's usually your main client script file, or html file
+	entry: "./client/index.js",
+	// This defines where the bundled code will end up in your project directory
+	// It's set up to be added into dist/bundle.js
+	output: {
+		path: path.resolve(__dirname),
+		filename: "bundle.js",
+		publicPath: "/dist"
+	},
+	// This allows you to view your client scripts in the browser as if they were not bundled
+	// While it's not required, it's highly recommended as it makes it much easier to debug your code during development
+	devtool: "source-map"
+}
+```
+<br>
+
+### Running
+
+Run the following in terminal to bundle your code:
+```
+webpack --entry ./client/index.js --output-filename ./dist/bundle.js --mode=development
+```
+<br>
+
+And this to start the server:
+```
+node server/app
 ```
