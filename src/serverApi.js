@@ -27,7 +27,7 @@ class ServerApi {
     addRoutes(app) {
         app.get("/reddit-api/posts", (req, res) => {
             this.getPosts(req.query).then(response => {
-                res.send({response: response});
+                res.send(response);
             });
         });
     }
@@ -88,16 +88,10 @@ class ServerApi {
         delete options.nsfw;
         delete options.flair;
 
-        const params = querystring.stringify(options);
+        const query = querystring.stringify(options);
 
-        let logUrl = decodeURIComponent(url + "?" + params);
-        logUrl = logUrl.split(" ").join("%20");
-        logUrl = logUrl.replace(".json", "");
-
-        console.log("Reddit search:", logUrl);
-
-        return await axios.get(url + "?" + params).then(response => {
-            return this._parseResponse(response);
+        return await axios.get(url + "?" + query).then(response => {
+            return {data: this._parseResponse(response)};
         });
     }
 

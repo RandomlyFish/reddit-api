@@ -38,6 +38,6 @@
 /** 
  * @typedef {Object} redditApiResponse
  * 
- * @property {redditApiParsedPost[]} response
+ * @property {redditApiParsedPost[]} data
  * @property {error} error
  */

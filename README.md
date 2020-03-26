@@ -10,7 +10,7 @@ Reddit posts can be requested like this:
 ``` javascript
 const options = {};
 redditClientApi.getPosts(options).then(response => {
-  console.log(response.response); // Logs out an array of objects with all the posts
+  console.log(response.data); // Logs out an array of objects for each post
 });
 ```
 <br>
@@ -44,9 +44,9 @@ In order to use the client api class it also needs to be bundled, for that I wou
 
 ## Getting started
 
-First install reddit-api and express by running the following in the terminal:
+First install reddit-api by running the following in the terminal:
 ```
-npm install @randomlyfish/reddit-api  express
+npm install @randomlyfish/reddit-api
 ```
 <br>
 

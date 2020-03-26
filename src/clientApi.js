@@ -1,6 +1,7 @@
 require("./jsdoc");
 
-const querystring = require('querystring');
+const querystring = require("querystring");
+const axios = require("axios").default;
 
 class ClientApi {
     constructor() {
@@ -12,21 +13,12 @@ class ClientApi {
      * @param {redditApiSearchOptions} options 
      * @returns {Promise<redditApiResponse>}
      */
-    getPosts(options) {
-        return new Promise((resolve, reject) => {
-            const onLoad = (response) => {
-                resolve(JSON.parse(response.target.response));
-            }
-            
-            // Any undefined properties are not included when using JSON.stringify
-            // Which is important as querystring.stringify includes undefined as properties with empty strings
-            options = JSON.parse(JSON.stringify(options));
+    async getPosts(options) {
+        options = JSON.parse(JSON.stringify(options));
+        const query = querystring.stringify(options);
 
-            const request = new XMLHttpRequest();
-            request.addEventListener("load", onLoad);
-            request.open("GET", "/reddit-api/posts?" + querystring.stringify(options));
-            request.setRequestHeader("Content-Type", "application/json"); 
-            request.send();
+        return await axios.get("/reddit-api/posts?" + query).then(response => {
+            return response.data;
         });
     }
 }

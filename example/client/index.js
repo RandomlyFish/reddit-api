@@ -31,6 +31,6 @@ button.onclick = () => {
     console.log("Getting posts...");
 
     redditClientApi.getPosts(options).then(response => {
-        console.log(response.response);
+        console.log(response);
     });
 };
