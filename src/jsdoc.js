@@ -1,19 +1,18 @@
 /** 
  * @typedef {Object} redditApiSearchOptions
  * 
- * @property {string | string[]} subreddit The subreddit to get posts from  
- * Can either be a string or an array of multiple strings   
+ * @property {string | string[]} subreddit The subreddit or subreddits to get posts from  
  * Using multiple subreddits does not ensure that posts from all subreddits will be returned
- * @property {string} flair The category for the posts, only used on certain subreddits
+ * @property {string} flair The category for the posts, only usable for subreddits which has flairs
  * @property {string} searchTerm The search query
  * @property {"relevance" | "top" | "new" | "comments"} sort The criteria to use for getting posts
- * @property {"hour" | "day" | "week" | "month" | "year" | "all"} time The max age for posts
+ * @property {"all" | "year" | "month" | "week" | "day" | "hour"} time The max age for posts
  * @property {string} linkDomain Get posts that links to a certain site
  * @property {Number} limit The max number of posts to return, max: 100
  * @property {string} after Will return posts after a given post, format: kind_id   
- * Does only work with a defined subreddit and Should be used with sort: "new"
+ * Does only work with a defined subreddit and should be used with sort: "new"
  * @property {string} before Will return posts before a given post, format: kind_id     
- * Does only work with a defined subreddit and Should be used with sort: "new"
+ * Does only work with a defined subreddit and should be used with sort: "new"
  * @property {boolean} nsfw If posts featuring adult content should be requested
  */
 
