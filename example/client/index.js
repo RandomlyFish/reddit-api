@@ -10,6 +10,7 @@ button.onclick = () => {
 
     const options = {};
 
+    // Store values from the various inputs on the page
     options.subreddit = document.getElementById("subreddit").value || undefined;
     options.flair = document.getElementById("flair").value || undefined;
     options.searchTerm = document.getElementById("search").value || undefined;
@@ -30,7 +31,26 @@ button.onclick = () => {
 
     console.log("Getting posts...");
 
-    redditClientApi.getPosts(options).then(response => {
-        console.log(response);
+    // Check if the provided subreddit exists and then log it out
+    redditClientApi.checkIfSubredditExists(options.subreddit).then(response => {
+        console.log("Subreddit exists:", response);
+    });
+
+    // Get posts based on the search options and log them out, along with any comments on the posts
+    redditClientApi.getPosts(options).then(postsResponse => {
+        console.log("Posts:", postsResponse);
+
+        if (postsResponse.error !== undefined) {
+            return;
+        }
+
+        const posts = postsResponse.data;
+        for (let i = 0; i < posts.length; i++) {
+            if (posts[i].comments > 0) {
+                redditClientApi.getCommentsForPost(posts[i].id).then(commentsResponse => {
+                    console.log(`Comments for post ${i}:`, commentsResponse);
+                });
+            }
+        }
     });
 };

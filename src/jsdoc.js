@@ -17,7 +17,7 @@
  */
 
 /** 
- * @typedef {Object} redditApiParsedPost
+ * @typedef {Object} redditApiPost
  * 
  * @property {string} postUrl The url to the reddit post
  * @property {string} type The type of post it is
@@ -36,8 +36,32 @@
  */
 
 /** 
- * @typedef {Object} redditApiResponse
+ * @typedef {Object} redditApiComment
  * 
- * @property {redditApiParsedPost[]} data
- * @property {error} error
+ * @property {string} author The username for the creator of the comment
+ * @property {string} text The text in the comment
+ * @property {number} score The total upvotes subtracted by downvotes
+ * @property {string} date The date that the comment was made
+ * @property {redditApiComment[]} replies The comments that this comment have recieved
+ */
+
+/** 
+ * @typedef {Object} redditApiPostsResponse
+ * 
+ * @property {redditApiPost[]} data
+ * @property {*} error
+ */
+
+/** 
+ * @typedef {Object} redditApiCommentsResponse
+ * 
+ * @property {redditApiComment[]} data
+ * @property {*} error
+ */
+
+/** 
+ * @typedef {Object} redditApiBooleanResponse
+ * 
+ * @property {boolean} data
+ * @property {*} error
  */
