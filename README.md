@@ -91,8 +91,9 @@ webpack.config.js
 ```
 <br>
 
-### index.html
-
+<details>
+<summary>index.html</summary>
+	
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -106,9 +107,14 @@ webpack.config.js
 </body>
 </html>
 ```
+	
+</details>
+
 <br>
 
-### index.js
+<details>
+<summary>index.js</summary>
+	
 ``` javascript
 import {redditClientApi} from "@randomlyfish/reddit-api";
 
@@ -117,9 +123,14 @@ redditClientApi.getPosts(options).then(response => {
     console.log(response.data); // Logs out an array of objects with all the posts
 });
 ```
+	
+</details>
+
 <br>
 
-### app.js
+<details>
+<summary>app.js</summary>
+	
 ``` javascript
 // Code for setting up express
 const path = require("path");
@@ -149,9 +160,14 @@ const {redditServerApi} = require("@randomlyfish/reddit-api");
 // Enables the use of the client api which is used in index.js
 redditServerApi.addRoutes(app);
 ```
+	
+</details>
+
 <br>
 
-### webpack.config.js
+<details>
+<summary>webpack.config.js</summary>
+	
 ``` javascript
 const path = require("path");
 
@@ -171,6 +187,9 @@ module.exports = {
 	devtool: "source-map"
 }
 ```
+	
+</details>
+
 <br>
 
 ### Running
