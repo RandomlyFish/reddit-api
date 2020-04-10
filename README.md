@@ -110,8 +110,6 @@ webpack.config.js
 	
 </details>
 
-<br>
-
 <details>
 <summary>index.js</summary>
 	
@@ -125,8 +123,6 @@ redditClientApi.getPosts(options).then(response => {
 ```
 	
 </details>
-
-<br>
 
 <details>
 <summary>app.js</summary>
@@ -162,8 +158,6 @@ redditServerApi.addRoutes(app);
 ```
 	
 </details>
-
-<br>
 
 <details>
 <summary>webpack.config.js</summary>
