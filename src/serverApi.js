@@ -124,6 +124,9 @@ class ServerApi {
                 return this._parseCommentResponse(comment);
             });
 
+            // If there are more comments than the default limit of 25, then the last comment will be undefined
+            comments = comments.filter(comment => comment !== undefined);
+
             return {data: comments}
         }).catch(error => {
             return {error: error}
