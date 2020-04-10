@@ -4,19 +4,30 @@ reddit-api is a small node library that makes it easy to use the reddit api in b
 
 <br>
 
-## Client request
+## Making requests
 
-Reddit posts can be requested like this:
+reddit-api exports both "redditClientApi" and "redditServerApi", one usable in client side code and the other usable in server side code.
+
+Checking if a subreddit exists:
+``` javascript
+const subreddit = "webdev";
+redditClientApi.checkIfSubredditExists(subreddit).then(response => {
+  console.log(response.data); // Logs out a boolean, in this case it will be true
+});
+```
+<br>
+
+Requesting posts:
 ``` javascript
 const options = {};
 redditClientApi.getPosts(options).then(response => {
   console.log(response.data); // Logs out an array of objects for each post
 });
 ```
-<br>
 
-the options object can include the following properties:
-
+<details>
+<summary>Options</summary>
+	
 | Property      | Type(s)           | Description                                                                             |
 | ------------- | -------------     | -------------                                                                           |
 | subreddit     | String, String[]  | The subreddit or subreddits to get posts from                                           |
@@ -32,6 +43,18 @@ the options object can include the following properties:
 
 This information is also available through jsdoc.
 
+</details>
+
+<br>
+
+Getting comments:
+``` javascript
+const postId = ""; // The id for a post can be found in the response when requesting posts
+redditClientApi.getCommentsForPost(postId).then(response => {
+  console.log(response.data); // Logs out an array of objects with details about each comments and replies to them
+  // In this case it won't work as the id is empty
+});
+```
 <br>
 
 ## Prerequsites
