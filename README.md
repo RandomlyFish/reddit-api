@@ -6,7 +6,9 @@ reddit-api is a small node library that makes it easy to use the reddit api in b
 
 ## Making requests
 
-reddit-api exports both "redditClientApi" and "redditServerApi", one usable in client side code and the other usable in server side code.
+reddit-api exports both "redditClientApi" and "redditServerApi", one usable in client side code and the other usable in server side code. Both are used in the same way so the following examples aplies to both.
+
+<br>
 
 Checking if a subreddit exists:
 ``` javascript

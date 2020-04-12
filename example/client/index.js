@@ -47,7 +47,7 @@ button.onclick = () => {
         const posts = postsResponse.data;
         for (let i = 0; i < posts.length; i++) {
             if (posts[i].comments > 0) {
-                redditClientApi.getCommentsForPost(posts[i].id).then(commentsResponse => {
+                redditClientApi.getCommentsForPost(posts[i].id, {depth: 1, limit: 10}).then(commentsResponse => {
                     console.log(`Comments for post ${i}:`, commentsResponse);
                 });
             }

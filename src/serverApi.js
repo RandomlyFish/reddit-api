@@ -33,7 +33,7 @@ class ServerApi {
         });
 
         app.get("/reddit-api/comments/:id", (req, res) => {
-            this.getCommentsForPost(req.params.id).then(response => {
+            this.getCommentsForPost(req.params.id, req.query).then(response => {
                 res.send(response);
             });
         });
@@ -49,7 +49,7 @@ class ServerApi {
      * @param {redditApiSearchOptions} options The options to use for searching 
      * @returns {Promise<redditApiPostsResponse>} Promise which resolves in an array of posts
      */
-    async getPosts(options) {
+    async getPosts(options = {}) {
         let url = "https://www.reddit.com/";
 
         options = this._cloneObject(options); // The object is cloned as it will be modified
@@ -112,11 +112,13 @@ class ServerApi {
 
     /** 
      * @param {string} id The string used to identify the post
+     * @param {redditApiCommentsOptions} options The options to use for getting comments
      * @returns {Promise<redditApiCommentsResponse>}
      */
-    async getCommentsForPost(id) {
-        let url = `https://www.reddit.com/comments/${id}.json`;
-        
+    async getCommentsForPost(id, options = {}) {
+        const query = querystring.stringify(options);
+        let url = `https://www.reddit.com/comments/${id}.json?${query}`;
+
         return await axios.get(url).then(response => {
             let comments = response.data[1].data.children;
 
@@ -124,7 +126,7 @@ class ServerApi {
                 return this._parseCommentResponse(comment);
             });
 
-            // If there are more comments than the default limit of 25, then the last comment will be undefined
+            // If there are more comments than the limit, then the last comment will be parsed as undefined
             comments = comments.filter(comment => comment !== undefined);
 
             return {data: comments}

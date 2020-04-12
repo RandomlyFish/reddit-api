@@ -17,6 +17,17 @@
  */
 
 /** 
+ * @typedef {Object} redditApiCommentsOptions
+ * 
+ * @property {number} depth The max depth of nested replies to comments
+ * * 0 results in all
+ * * 1 results in only comments directly to the post
+ * * 2 results in the comments plus the replies directly to them
+ * * ...
+ * @property {Number} limit The max number of comments and replies to return
+ */
+
+/** 
  * @typedef {Object} redditApiPost
  * 
  * @property {string} postUrl The url to the reddit post
